@@ -24,10 +24,10 @@ index cd00834807..b27d4f1746 100644
  extern AVInputFormat  ff_dash_demuxer;
 diff --git a/libavformat/streamconcatdec.c b/libavformat/streamconcatdec.c
 new file mode 100644
-index 0000000000..7e7c951bca
+index 0000000000..9f5544069e
 --- /dev/null
 +++ b/libavformat/streamconcatdec.c
-@@ -0,0 +1,244 @@
+@@ -0,0 +1,245 @@
 +/*
 + * RAW video demuxer
 + * Copyright (c) 2001 Fabrice Bellard
@@ -102,9 +102,6 @@ index 0000000000..7e7c951bca
 +static int streamconcat_read_close(AVFormatContext *ctx)
 +{
 +    StreamConcatDemuxerContext *cat = ctx->priv_data;
-+
-+    cat->start_time = AV_NOPTS_VALUE;
-+    cat->duration = 0;
 +
 +    av_bprint_finalize(&cat->bp, NULL);
 +
@@ -188,6 +185,9 @@ index 0000000000..7e7c951bca
 +
 +    av_bprint_init(&cat->bp, 0, AV_BPRINT_SIZE_UNLIMITED);
 +
++    cat->start_time = AV_NOPTS_VALUE;
++    cat->duration = 0;
++
 +    ret = open_next_file(ctx);
 +    if (ret < 0)
 +        goto fail;
@@ -232,6 +232,7 @@ index 0000000000..7e7c951bca
 +           av_ts2str(pkt->dts), av_ts2timestr(pkt->dts, &source_st->time_base));
 +
 +    current_source_start_time = cat->avf->start_time == AV_NOPTS_VALUE ? 0 : cat->avf->start_time;
++    // TODO delta only need to be calculate once per input file
 +    delta = av_rescale_q(cat->start_time + cat->duration - current_source_start_time,
 +                         AV_TIME_BASE_Q,
 +                         source_st->time_base);
