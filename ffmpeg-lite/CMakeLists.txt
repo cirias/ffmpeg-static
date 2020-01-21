@@ -37,7 +37,7 @@ EXTERNALPROJECT_ADD(zlib
 
 EXTERNALPROJECT_ADD(libxml2
   URL https://gitlab.gnome.org/GNOME/libxml2/-/archive/v2.9.9/libxml2-v2.9.9.tar.gz
-  CONFIGURE_COMMAND ./autogen.sh --prefix=${CMAKE_BINARY_DIR}
+  CONFIGURE_COMMAND ./autogen.sh --prefix=${CMAKE_BINARY_DIR} --enable-shared=no
   BUILD_IN_SOURCE 1
 )
 
@@ -60,7 +60,7 @@ EXTERNALPROJECT_ADD(x264
 )
 
 SET(FFMPEG_COMPONENTS --disable-doc --disable-postproc --disable-debug --disable-indevs --disable-outdevs --disable-sdl2 --disable-lzma --disable-iconv)
-LIST(APPEND FFMPEG_COMPONENTS --enable-static --enable-gpl --enable-pic --enable-libx264 --enable-libxml2 --enable-ffmpeg --enable-ffprobe --disable-ffplay --disable-hwaccels --disable-v4l2-m2m --disable-vaapi --disable-vdpau --disable-videotoolbox --disable-audiotoolbox)
+LIST(APPEND FFMPEG_COMPONENTS --pkg-config-flags=--static --disable-shared --enable-static --enable-gpl --enable-pic --enable-libx264 --enable-libxml2 --enable-ffmpeg --enable-ffprobe --disable-ffplay --disable-hwaccels --disable-v4l2-m2m --disable-vaapi --disable-vdpau --disable-videotoolbox --disable-audiotoolbox)
 LIST(APPEND FFMPEG_COMPONENTS --enable-avcodec --enable-avformat --enable-avfilter --enable-swresample --enable-swscale --enable-avutil)
 LIST(APPEND FFMPEG_COMPONENTS --disable-demuxers --enable-demuxer=mov,mpegts,dash,hls,h264,hevc,aac,rawvideo,streamconcat,concat,image2)
 LIST(APPEND FFMPEG_COMPONENTS --disable-muxers --enable-muxer=mp4,mov,mpegts,dash,hls,segment,tee,h264,hevc,aac,rawvideo,image2)
