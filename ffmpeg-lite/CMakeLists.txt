@@ -35,6 +35,12 @@ EXTERNALPROJECT_ADD(zlib
   BUILD_IN_SOURCE 1
 )
 
+EXTERNALPROJECT_ADD(libxml2
+  URL https://gitlab.gnome.org/GNOME/libxml2/-/archive/v2.9.9/libxml2-v2.9.9.tar.gz
+  CONFIGURE_COMMAND ./autogen.sh --prefix=${CMAKE_BINARY_DIR}
+  BUILD_IN_SOURCE 1
+)
+
 EXTERNALPROJECT_ADD(libpng
   DEPENDS zlib
   URL https://download.sourceforge.net/libpng/libpng-1.6.37.tar.gz
@@ -54,7 +60,7 @@ EXTERNALPROJECT_ADD(x264
 )
 
 SET(FFMPEG_COMPONENTS --disable-doc --disable-postproc --disable-debug --disable-indevs --disable-outdevs --disable-sdl2 --disable-lzma --disable-iconv)
-LIST(APPEND FFMPEG_COMPONENTS --enable-static --enable-gpl --enable-pic --enable-libx264 --enable-ffmpeg --enable-ffprobe --disable-ffplay --disable-hwaccels --disable-v4l2-m2m --disable-vaapi --disable-vdpau --disable-videotoolbox --disable-audiotoolbox)
+LIST(APPEND FFMPEG_COMPONENTS --enable-static --enable-gpl --enable-pic --enable-libx264 --enable-libxml2 --enable-ffmpeg --enable-ffprobe --disable-ffplay --disable-hwaccels --disable-v4l2-m2m --disable-vaapi --disable-vdpau --disable-videotoolbox --disable-audiotoolbox)
 LIST(APPEND FFMPEG_COMPONENTS --enable-avcodec --enable-avformat --enable-avfilter --enable-swresample --enable-swscale --enable-avutil)
 LIST(APPEND FFMPEG_COMPONENTS --disable-demuxers --enable-demuxer=mov,mpegts,dash,hls,h264,hevc,aac,rawvideo,streamconcat,concat,image2)
 LIST(APPEND FFMPEG_COMPONENTS --disable-muxers --enable-muxer=mp4,mov,mpegts,dash,hls,segment,tee,h264,hevc,aac,rawvideo,image2)
@@ -65,7 +71,7 @@ LIST(APPEND FFMPEG_COMPONENTS --disable-protocols --enable-protocol=file,pipe,un
 LIST(APPEND FFMPEG_COMPONENTS --extra-cflags=-I${CMAKE_BINARY_DIR}/include --extra-ldflags=-L${CMAKE_BINARY_DIR}/lib --extra-libs=-lpng\ -lz\ -lstdc++\ -lm\ -ldl)
 
 EXTERNALPROJECT_ADD(ffmpeg
-  DEPENDS nasm gperf x264 libpng
+  DEPENDS nasm gperf x264 libpng libxml2
   URL http://www.ffmpeg.org/releases/ffmpeg-4.2.1.tar.bz2
   PATCH_COMMAND ${CMAKE_SOURCE_DIR}/../patches/patch.sh ffmpeg
   CONFIGURE_COMMAND PKG_CONFIG_PATH=$ENV{PKG_CONFIG_PATH} ./configure --prefix=${CMAKE_BINARY_DIR} --datadir=${CMAKE_BINARY_DIR}/etc ${FFMPEG_COMPONENTS}

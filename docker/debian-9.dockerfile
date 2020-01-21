@@ -2,7 +2,7 @@ FROM debian:9-slim
 
 WORKDIR /opt/app
 
-RUN apt-get update && apt-get install -y build-essential cmake git wget
+RUN apt-get update && apt-get install -y build-essential cmake git wget autoconf libtool automake pkgconf
 
 # Install latest version of cmake
 RUN cd /tmp && \
