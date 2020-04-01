@@ -69,7 +69,7 @@ EXTERNALPROJECT_ADD(openssl
   BUILD_IN_SOURCE 1
 )
 
-SET(FFMPEG_COMPONENTS --disable-doc --disable-postproc --disable-debug --disable-indevs --disable-outdevs --disable-sdl2 --disable-lzma --disable-iconv)
+SET(FFMPEG_COMPONENTS --disable-doc --disable-postproc --disable-debug --disable-outdevs --disable-sdl2 --disable-lzma --disable-iconv)
 LIST(APPEND FFMPEG_COMPONENTS --pkg-config-flags=--static --disable-shared --enable-static --enable-gpl --enable-pic --enable-libx264 --enable-libxml2 --enable-ffmpeg --enable-ffprobe --disable-ffplay --disable-hwaccels --disable-v4l2-m2m --disable-vaapi --disable-vdpau --disable-videotoolbox --disable-audiotoolbox)
 LIST(APPEND FFMPEG_COMPONENTS --enable-avcodec --enable-avformat --enable-avfilter --enable-swresample --enable-swscale --enable-avutil)
 LIST(APPEND FFMPEG_COMPONENTS --enable-nonfree --enable-openssl)
@@ -79,6 +79,7 @@ LIST(APPEND FFMPEG_COMPONENTS --disable-decoders --enable-decoder=h264,hevc,aac,
 LIST(APPEND FFMPEG_COMPONENTS --disable-encoders --enable-encoder=libx264,aac,mjpeg,png,rawvideo)
 LIST(APPEND FFMPEG_COMPONENTS --disable-filters --enable-filter=scale,copy,concat,split,setpts,bwdif)
 LIST(APPEND FFMPEG_COMPONENTS --disable-protocols --enable-protocol=file,pipe,unix,concat,http,https)
+LIST(APPEND FFMPEG_COMPONENTS --disable-indevs --enable-indev=lavfi)
 LIST(APPEND FFMPEG_COMPONENTS --extra-cflags=-I${CMAKE_BINARY_DIR}/include --extra-ldflags=-L${CMAKE_BINARY_DIR}/lib --extra-libs=-lpng\ -lz\ -lstdc++\ -lm\ -ldl)
 
 EXTERNALPROJECT_ADD(ffmpeg
