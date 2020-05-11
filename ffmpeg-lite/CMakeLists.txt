@@ -53,7 +53,7 @@ EXTERNALPROJECT_ADD(x264
   GIT_REPOSITORY http://git.videolan.org/git/x264.git
   GIT_TAG stable
   GIT_SHALLOW 1
-  CONFIGURE_COMMAND ./configure --prefix=${CMAKE_BINARY_DIR} --bit-depth=8 --chroma-format=all --enable-static --enable-pic --enable-strip --disable-cli --disable-gpl --disable-avs --disable-ffms --disable-swscale --disable-gpac --disable-lsmash
+  CONFIGURE_COMMAND ${CMAKE_SOURCE_DIR}/../patches/patch.sh x264 && ./configure --prefix=${CMAKE_BINARY_DIR} --bit-depth=8 --chroma-format=all --enable-static --enable-pic --enable-strip --disable-cli --disable-gpl --disable-avs --disable-ffms --disable-swscale --disable-gpac --disable-lsmash
   BUILD_COMMAND $(MAKE)
   BUILD_ALWAYS 0
   BUILD_IN_SOURCE 1

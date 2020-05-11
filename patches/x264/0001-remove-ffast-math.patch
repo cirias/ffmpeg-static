@@ -1,0 +1,29 @@
+diff --git a/configure b/configure
+index 181a67be..a260602d 100755
+--- a/configure
++++ b/configure
+@@ -86,7 +86,6 @@ cc_cflags() {
+         [[ "$arg" = -l* ]] && arg=
+         [[ "$arg" = -L* ]] && arg=
+         if [ $compiler_style = MS ]; then
+-            [ "$arg" = -ffast-math ] && arg="-fp:fast"
+             [ "$arg" = -Wall ] && arg=
+             [ "$arg" = -Werror ] && arg="-W3 -WX"
+             [ "$arg" = -g ] && arg=-Z7
+@@ -94,7 +93,6 @@ cc_cflags() {
+             [ "$arg" = -s ] && arg=
+             [ "$arg" = -fPIC ] && arg=
+         else
+-            [ "$arg" = -ffast-math ] && arg=
+             [ "$arg" = -Wall ] && arg=
+             [ "$arg" = -Werror ] && arg="-w3 -Werror"
+         fi
+@@ -1294,7 +1292,7 @@ if [ "$debug" = "yes" ]; then
+     CFLAGS="-O1 -g $CFLAGS"
+     RCFLAGS="$RCFLAGS -DDEBUG"
+ else
+-    CFLAGS="-O3 -ffast-math $CFLAGS"
++    CFLAGS="-O3 $CFLAGS"
+     if [ "$lto" = "auto" ] && [ $compiler = GNU ] && cc_check "" "-flto" ; then
+         lto="yes"
+         CFLAGS="$CFLAGS -flto"
