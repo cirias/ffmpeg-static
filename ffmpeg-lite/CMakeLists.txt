@@ -37,7 +37,7 @@ EXTERNALPROJECT_ADD(zlib
 
 EXTERNALPROJECT_ADD(libxml2
   URL https://gitlab.gnome.org/GNOME/libxml2/-/archive/v2.9.9/libxml2-v2.9.9.tar.gz
-  CONFIGURE_COMMAND ./autogen.sh --prefix=${CMAKE_BINARY_DIR} --enable-shared=no
+  CONFIGURE_COMMAND ./autogen.sh --prefix=${CMAKE_BINARY_DIR} --enable-shared=no --with-python=no
   BUILD_IN_SOURCE 1
 )
 
